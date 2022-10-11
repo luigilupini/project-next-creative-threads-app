@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase";
+import { getAuth } from "firebase/auth";
 // Returns existing/default Firestore instance associated with firebase/app
 import { getFirestore } from "firebase/firestore";
 
