@@ -1,5 +1,7 @@
 import "../styles/globals.css";
 import Layout from "../components/layout";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // This is the default `App` component that you get and it is used by Next.js to
 // initialize pages. Imagine it as an entry point of all your `pages` component
@@ -19,6 +21,7 @@ import Layout from "../components/layout";
 function MyApp({ Component, pageProps }) {
   return (
     <Layout>
+      <ToastContainer limit={1} />
       <Component {...pageProps} />
     </Layout>
   );

@@ -5,6 +5,8 @@ import { auth, db } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
+import { toast } from "react-toastify";
+
 export default function Post() {
   // Providing <form> state:
   const [post, setPost] = useState({ description: "" });
@@ -14,6 +16,22 @@ export default function Post() {
   const submitPost = async (e) => {
     // preventing <form> default browser behavior
     e.preventDefault();
+    // Before submitting a post run the following condition for description:
+    if (!post.description) {
+      toast.error("Description field is empty 😅!", {
+        position: "top-center",
+        autoClose: 1500,
+      });
+      return; // exist logic
+    }
+    if (post.description.length > 300) {
+      toast.error("Description field is too long 🧐!", {
+        position: "top-center",
+        autoClose: 1500,
+      });
+      return; // exist logic
+    }
+
     // Makes a new post to `Firestore`, gets a CollectionReference instance that
     // refers to the collection at the specified absolute path.
     // @param `firestore` — A reference to the root `Firestore` instance.
