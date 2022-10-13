@@ -20,6 +20,7 @@ export default function Post() {
   const route = useRouter();
   // console.log(route);
   const routeData = route.query; // We use this in our route `checkUser` handler.
+  const toastConfig = { position: "top-center", autoClose: 1500 };
 
   // Event callback handlers:
   const submitPost = async (e) => {
@@ -27,17 +28,11 @@ export default function Post() {
     e.preventDefault();
     // Before submitting a post run the following condition for description:
     if (!post.description) {
-      toast.error("Description field is empty 😅!", {
-        position: "top-center",
-        autoClose: 1500,
-      });
+      toast.error("Description field is empty 😅", toastConfig);
       return; // exist logic
     }
     if (post.description.length > 300) {
-      toast.error("Description field is too long 🧐!", {
-        position: "top-center",
-        autoClose: 1500,
-      });
+      toast.error("Description field is too long 🧐", toastConfig);
       return; // exist logic
     }
 
@@ -46,6 +41,7 @@ export default function Post() {
       const docRef = doc(db, "posts", post.id);
       const updatePost = { ...post, timestamp: serverTimestamp() };
       await updateDoc(docRef, updatePost);
+      toast.success("Post has been updated 👍🏻", toastConfig);
       return route.push("/");
     } else {
       // TODO: Create (CRUD) operation:
@@ -62,6 +58,7 @@ export default function Post() {
         username: user.displayName,
       });
       setPost({ description: "" }); // clear out after submission
+      toast.success("Post has been created 🚀", toastConfig);
       return route.push("/");
     }
   };
@@ -85,9 +82,6 @@ export default function Post() {
     checkUser();
   }, [user, loading]);
 
-  const { length } = post.description;
-  const numExp = `text-cyan-600 text-sm ${length > 300 ? "text-red-600" : ""}`;
-
   return (
     <div className="my-20 p-12 shadow-lg rounded-lg max-w-md mx-auto">
       <form onSubmit={submitPost}>
@@ -98,16 +92,22 @@ export default function Post() {
           <h3 className="text-lg font-medium py-2">Description</h3>
           <textarea
             value={post.description}
-            onChange={changePost}
+            onChange={(e) => setPost({ ...post, description: e.target.value })}
             className="bg-gray-800 h-48 w-full text-white rounded-lg p-2 text-sm"
           ></textarea>
-          <p className={numExp}>{length}/300</p>
+          <p
+            className={`text-cyan-600 font-medium text-sm ${
+              post.description.length > 300 ? "text-red-600" : ""
+            }`}
+          >
+            {post.description.length}/300
+          </p>
         </div>
         <button
           type="submit"
           className="w-full bg-cyan-600 text-white font-medium p-2 my-2 rounded-lg text-sm"
         >
-          {post.hasOwnProperty("id") ? "Update" : "Submit"}
+          Submit
         </button>
       </form>
     </div>
