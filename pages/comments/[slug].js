@@ -27,7 +27,8 @@ export default function Details() {
   // Submit handler:
   const submitMessage = async () => {
     // Check if user is logged in:
-    if (!user) return route.push("/auth/login");
+    // if (!user) return route.push("/auth/login");
+    if (!auth.currentUser) return route.push("/auth/login");
     if (!message) {
       toast.error("Don't leave an empty message 😅", toastObj);
       return; // exit logic!
@@ -44,30 +45,35 @@ export default function Details() {
     const docRef = doc(db, "posts", routeData.id); // doc `id` from our route
     await updateDoc(docRef, {
       comments: arrayUnion({
-        message: message,
-        avatar: user.photoURL,
-        userName: user.displayName,
+        message,
+        // avatar: user.photoURL,
+        // userName: user.displayName,
+        avatar: auth.currentUser.photoURL,
+        userName: auth.currentUser.displayName,
         time: Timestamp.now(),
       }),
     });
     setMessage(""); // Will reset <input> after submission.
   };
 
+  // Get comments handler:
+  // TODO: Read (CRUD) operation:
+  const getComments = async () => {
+    const docRef = doc(db, "posts", routeData.id);
+    const unsubscribe = onSnapshot(docRef, (snapshot) => {
+      try {
+        setAllMessages(snapshot.data().comments);
+      } catch (error) {
+        return <p>error</p>;
+      }
+    });
+    return unsubscribe;
+    // Option 2: `getDoc` has no event listener:
+    // const docSnap = await getDoc(docRef);
+    // const data = docSnap.data().comments;
+    // setAllMessages(data);
+  };
   useEffect(() => {
-    // Get comments handler:
-    // TODO: Read (CRUD) operation:
-    const getComments = async () => {
-      const docRef = doc(db, "posts", routeData.id); // doc `id` from our route
-      // Option 1: `onSnapshot` recommended:
-      const snapshot = onSnapshot(docRef, (snap) =>
-        setAllMessages(snap.data().comments)
-      );
-      return snapshot;
-      // Option 2: `getDoc` has no event listener:
-      // const docSnap = await getDoc(docRef);
-      // const data = docSnap.data().comments;
-      // setAllMessages(data);
-    };
     if (!route.isReady) return;
     getComments();
   }, [route.isReady]);
