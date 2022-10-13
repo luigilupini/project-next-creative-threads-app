@@ -18,12 +18,13 @@ export default function Home() {
       const q = query(collectionRef, orderBy("timestamp", "desc"));
       // Attaches a listener for `DocumentSnapshot` events from our `db` that we
       // instance as a callback called `unsubscribe`, or better `snapshot`.
-      // Instead of using separate getDoc/addDoc functions, we can just use are
+      // Instead of using separate getDoc/addDoc functions, we can use are -
       // `snapshot` instance of `onSnapshot` to read/write data in real-time.
       const snapshot = onSnapshot(q, (snap) => {
-        // console.log(snap);
-        // With `map` we return an array that we (...) spread each item of data
+        // Our snap `docs` is an array of all documents in the `QuerySnapshot`.
+        // With `map` we return a new array that we spread each item of data -
         // into an array object entry, that is from each firestore document.
+        // console.log(snap);
         const update = snap.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
@@ -45,7 +46,7 @@ export default function Home() {
         <h2>See what other people are saying (all posts 🐥)</h2>
         {allPosts.map((post) => (
           // Here we just spread everything we iterate as props:
-          <Message {...post} key={post.id}>
+          <Message key={post.id} {...post}>
             <p className="text-red-600">temp child "add buttons"</p>
           </Message>
         ))}
