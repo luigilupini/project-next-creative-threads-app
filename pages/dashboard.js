@@ -58,8 +58,13 @@ export default function Dashboard() {
   // @param path — A slash-separated path to a document like `posts` collection.
   // Additional path segments must be applied relative to the first argument.
   const deletePost = async (id) => {
-    const docRef = doc(db, "posts", id);
-    await deleteDoc(docRef);
+    try {
+      route.push("/");
+      const docRef = doc(db, "posts", id);
+      await deleteDoc(docRef);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

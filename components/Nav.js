@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CgProfile } from "react-icons/cg";
 
 // Anytime we want to interact with the authenticated user state from firebase,
 // We can use that helpful hook as seen in our pages/auth/login.js file.
@@ -11,7 +12,9 @@ export default function Nav() {
   return (
     <nav className="flex justify-between items-center py-10">
       <Link href={"/"}>
-        <button className="text-lg font-medium">Creative Threads</button>
+        <button className="text-lg font-medium">
+          <strong>Logo</strong> | threads
+        </button>
       </Link>
       <ul className="flex items-center gap-10">
         {!user && (

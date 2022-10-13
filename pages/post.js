@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 
 import { toast } from "react-toastify";
+const toastObj = { position: "top-center", autoClose: 1500 };
 
 export default function Post() {
   // Providing <form> state:
@@ -20,7 +21,6 @@ export default function Post() {
   const route = useRouter();
   // console.log(route);
   const routeData = route.query; // We use this in our route `checkUser` handler.
-  const toastConfig = { position: "top-center", autoClose: 1500 };
 
   // Event callback handlers:
   const submitPost = async (e) => {
@@ -28,11 +28,11 @@ export default function Post() {
     e.preventDefault();
     // Before submitting a post run the following condition for description:
     if (!post.description) {
-      toast.error("Description field is empty 😅", toastConfig);
+      toast.error("Description field is empty 😅", toastObj);
       return; // exist logic
     }
     if (post.description.length > 300) {
-      toast.error("Description field is too long 🧐", toastConfig);
+      toast.error("Description field is too long 🧐", toastObj);
       return; // exist logic
     }
 
@@ -41,7 +41,7 @@ export default function Post() {
       const docRef = doc(db, "posts", post.id);
       const updatePost = { ...post, timestamp: serverTimestamp() };
       await updateDoc(docRef, updatePost);
-      toast.success("Post has been updated 👍🏻", toastConfig);
+      toast.success("Post has been updated 👍🏻", toastObj);
       return route.push("/");
     } else {
       // TODO: Create (CRUD) operation:
@@ -52,13 +52,14 @@ export default function Post() {
       const collectionRef = collection(db, "posts");
       await addDoc(collectionRef, {
         ...post, // spread current state (we don't mutate)!
+        comments: [],
         timestamp: serverTimestamp(),
         user: user.uid,
         avatar: user.photoURL,
         username: user.displayName,
       });
       setPost({ description: "" }); // clear out after submission
-      toast.success("Post has been created 🚀", toastConfig);
+      toast.success("Post has been created 🚀", toastObj);
       return route.push("/");
     }
   };
