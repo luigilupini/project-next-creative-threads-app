@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import Message from "../components/Message";
 import { BsTrash2Fill } from "react-icons/bs";
@@ -21,14 +22,13 @@ export default function Dashboard() {
   const [user, loading] = useAuthState(auth);
   const [posts, setPosts] = useState([]);
 
-  // Get users data when component (mounts) and when dependency changes:
+  // Get users data when component mounts and when dependency changes:
   useEffect(() => {
     // See if user is logged in:
     const getData = async () => {
       if (loading) return;
       if (!user) return route.push("/auth/login");
-      const collectionRef = collection(db, "posts");
-      const q = query(collectionRef, where("user", "==", user.uid));
+      // TODO: Read (CRUD) operation:
       // Get realtime updates with Cloud Firestore:
       // You can listen to a document with the `onSnapshot` method.
       // An initial call using the second argument being a callback you provide,
@@ -36,6 +36,8 @@ export default function Dashboard() {
       // the single document. Then, each time the contents change, another call
       // updates the document snapshot. For more info, see below link:
       // ? https://firebase.google.com/docs/firestore/query-data/listen
+      const collectionRef = collection(db, "posts");
+      const q = query(collectionRef, where("user", "==", user.uid));
       const unsubscribe = onSnapshot(q, (snapshot) => {
         const data = snapshot.docs.map((doc) => ({
           ...doc.data(),
@@ -49,6 +51,7 @@ export default function Dashboard() {
     getData();
   }, [user, loading]);
 
+  // TODO: Delete (CRUD) operation:
   // Delete handler gets an individual `doc` an `DocumentReference` instance.
   // That refers to the document at specified absolute path.
   // @param firestore — A reference to the root Firestore `db` instance.
@@ -73,10 +76,18 @@ export default function Dashboard() {
                 <BsTrash2Fill className="text-2xl" />
                 Delete
               </button>
-              <button className="text-teal-600 flex items-center justify-center gap-2 py-2 text-sm">
-                <FiEdit className="text-2xl" />
-                Edit
-              </button>
+              {/*
+                Our <Link /> `href` prop with a configuration object. We can
+                navigate to the next route being our '/post' and we update its
+                `query` property with our individual post we iterating over.
+                Now our pages/post component's `route` state, has these values.
+              */}
+              <Link href={{ pathname: "/post", query: post }}>
+                <button className="text-teal-600 flex items-center justify-center gap-2 py-2 text-sm">
+                  <FiEdit className="text-2xl" />
+                  Edit
+                </button>
+              </Link>
             </div>
           </Message>
         ))}

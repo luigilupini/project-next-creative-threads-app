@@ -10,6 +10,7 @@ export default function Home() {
   const [allPosts, setAllPosts] = useState([]);
   useEffect(() => {
     const getPosts = async () => {
+      // CRUD operation (read) firestore entry:
       const collectionRef = collection(db, "posts");
       // Creates a new immutable instance of `Query` that is extended to also -
       // include additional query constraints that are like filter criteria.
