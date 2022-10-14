@@ -1,6 +1,6 @@
 export default function Message({ children, avatar, username, description }) {
   return (
-    <div className="bg-white p-8 border-b-2 border-gray-100">
+    <div className="bg-white p-8 drop-shadow-md rounded-md my-3">
       <div className="flex items-center gap-2">
         <img
           src={avatar}
@@ -9,7 +9,7 @@ export default function Message({ children, avatar, username, description }) {
         />
         <h2>{username}</h2>
       </div>
-      <div className="py-4">
+      <div className="py-4 overflow-hidden text-ellipsis whitespace-nowrap">
         <p>{description}</p>
       </div>
       {children}

@@ -64,7 +64,7 @@ export default function Post() {
     }
   };
 
-  // Remember to not mutate state directly, instead we `...` spread existing
+  // Remember to not mutate state directly, instead we spread existing
   // and then apply changes, otherwise you change the state completely.
   // Example: const changePost = (e) => setPost(e.target.value); ❌
   // Otherwise JSX: <p>{post.description.length}/300</p> will produce error.
@@ -84,7 +84,7 @@ export default function Post() {
   }, [user, loading]);
 
   return (
-    <div className="my-20 p-12 shadow-lg rounded-lg max-w-md mx-auto">
+    <div className="my-20 p-12 shadow-xl rounded-lg max-w-md mx-auto">
       <form onSubmit={submitPost}>
         <h1 className="text-2xl font-bold">
           {post.hasOwnProperty("id") ? "Edit your post" : "Create a new post"}
@@ -94,11 +94,11 @@ export default function Post() {
           <textarea
             value={post.description}
             onChange={(e) => setPost({ ...post, description: e.target.value })}
-            className="bg-gray-800 h-48 w-full text-white rounded-lg p-2 text-sm"
+            className="h-48 w-full text-slate-700 bg-slate-100  rounded-lg p-2 text-sm"
           ></textarea>
           <p
             className={`text-cyan-600 font-medium text-sm ${
-              post.description.length > 300 ? "text-red-600" : ""
+              post.description.length > 300 ? "text-red-600 font-bold" : ""
             }`}
           >
             {post.description.length}/300
@@ -106,7 +106,7 @@ export default function Post() {
         </div>
         <button
           type="submit"
-          className="w-full bg-cyan-600 text-white font-medium p-2 my-2 rounded-lg text-sm"
+          className="w-full bg-gray-200 text-slate-700  font-medium p-2 my-2 rounded-lg text-sm"
         >
           Submit
         </button>

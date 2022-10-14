@@ -68,8 +68,8 @@ export default function Dashboard() {
   };
 
   return (
-    <div>
-      <h1>Your posts</h1>
+    <div className="my-4">
+      <h2 className="py-2  mb-8">Below is your current post activity</h2>
       <div>
         {posts.map((post) => (
           <Message key={post.id} {...post}>
@@ -88,7 +88,7 @@ export default function Dashboard() {
                 Now our pages/post component's `route` state, has these values.
               */}
               <Link href={{ pathname: "/post", query: post }}>
-                <button className="text-teal-600 flex items-center justify-center gap-2 py-2 text-sm">
+                <button className="text-[#00BA7C] flex items-center justify-center gap-2 py-2 text-sm">
                   <FiEdit className="text-2xl" />
                   Edit
                 </button>
@@ -98,7 +98,7 @@ export default function Dashboard() {
         ))}
       </div>
       <button
-        className="font-medium text-white bg-gray-800 py-2 px-4 my-6 rounded-sm"
+        className="font-medium bg-gray-200 text-slate-700 py-2 px-4 my-6 rounded-lg"
         onClick={() => auth.signOut()}
       >
         Sign out

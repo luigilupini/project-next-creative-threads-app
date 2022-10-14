@@ -79,30 +79,31 @@ export default function Details() {
   }, [route.isReady]);
 
   return (
-    <div>
-      <Message {...routeData}></Message>
-      <div className="my-4">
-        <div className="flex">
+    <div className="my-8 text-sm font-medium">
+      <Message {...routeData}>
+        <div className="flex mt-4">
           <input
             onChange={(e) => setMessage(e.target.value)}
             type="text"
             value={message}
-            placeholder="Send a message 😀"
-            className="bg-gray-800 w-full p-2 text-white text-sm"
+            placeholder="Add a comment 😀"
+            className="text-slate-700 bg-slate-100 w-full p-2 text-sm rounded-l-sm"
           />
           <button
             onClick={submitMessage}
-            className="bg-cyan-500 py-2 px-4 text-sm rounded-r-sm"
+            className="bg-gray-200 py-2 px-4 text-gray-800 text-sm rounded-r-sm"
           >
             Submit
           </button>
         </div>
+      </Message>
+      <div className="my-4">
         <div className="py-6">
           <h2 className="font-bold">Comments</h2>
           {allMessages.map((msg) => (
             <div
               key={msg.time}
-              className="bg-white p-4 my-4 border-2 shadow-lg rounded-lg"
+              className="bg-white p-4 mt-3 border-b-2 border-slate-700"
             >
               <div className="flex items-center gap-2 mb-4">
                 <img className="w-10 rounded-full" src={msg.avatar} alt="" />

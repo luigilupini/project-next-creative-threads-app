@@ -38,7 +38,13 @@ export default function Home() {
     getPosts();
   }, []);
 
-  if (!allPosts.length) return <div>We need posts...</div>;
+  if (!allPosts.length)
+    return (
+      <div className="my-4 font-medium rounded-lg">
+        <h1 className="text-2xl font-medium py-2 mb-2">No posts :(</h1>
+        <h2 className="mb-8">Join now and start posting </h2>
+      </div>
+    );
   return (
     <div>
       <Head>
@@ -47,7 +53,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="my-12 text-lg font-medium drop-shadow-lg rounded-lg">
+      <div className="my-4 font-medium rounded-lg">
         <h1 className="text-2xl font-medium py-2 mb-2">All Posts</h1>
         <h2 className="mb-8">See what other people are saying</h2>
         {allPosts.map((post) => (
@@ -56,13 +62,13 @@ export default function Home() {
             <Link
               href={{ pathname: `/comments/${post.id}`, query: { ...post } }}
             >
-              <button className="flex items-center gap-2 font-medium">
+              <button className="flex items-center gap-2">
                 {post.comments?.length > 0 ? (
-                  <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700">
+                  <span className="rounded-full text-slate-700 bg-slate-100 px-2 py-1 text-xs font-semibold">
                     {post.comments.length}
                   </span>
                 ) : (
-                  <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700">
+                  <span className="rounded-full text-slate-700 bg-slate-100 px-2 py-1 text-xs font-semibold">
                     0
                   </span>
                 )}
