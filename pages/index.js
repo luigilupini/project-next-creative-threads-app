@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import Message from "../components/message";
+import Message from "../components/Message";
 
 import { useEffect, useState } from "react";
 
