@@ -1,5 +1,5 @@
 import Link from "next/link";
-// import { BsPerson } from "react-icons/bs";
+import { BsPerson } from "react-icons/bs";
 
 // Anytime we want to interact with the authenticated user state from firebase,
 // We can use that helpful hook as seen in our pages/auth/login.js file.
@@ -32,13 +32,13 @@ export default function Nav() {
               </button>
             </Link>
             <Link href={"/dashboard"}>
-              {/* <BsPerson className="text-3xl text-gray-600 cursor-pointer hover:text-slate-900" /> */}
-              <img
+              <BsPerson className="text-3xl text-gray-600 cursor-pointer hover:text-slate-900" />
+              {/* <img
                 src={user.photoURL}
                 alt="avatar"
                 referrerPolicy="no-referrer"
                 className="w-12 rounded-full cursor-pointer"
-              />
+              /> */}
             </Link>
           </div>
         )}

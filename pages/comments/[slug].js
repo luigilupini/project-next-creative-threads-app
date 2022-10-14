@@ -1,11 +1,10 @@
-import Message from "../../components/Message";
+import Message from "../../components/message";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 import {
   arrayUnion,
   doc,
-  getDoc,
   onSnapshot,
   Timestamp,
   updateDoc,
