@@ -7,7 +7,7 @@
 Featuring:
 
 - This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-- Open [react-.netlify](https://react-.netlify.app/) with your browser to see the result.
+- Open my [vercel.app](https://react-creative-threads-app.vercel.app/) with your browser to see the result.
 - All authentication and messaging (posts), is securely stored with **firebase**.
 - Added **tailwindcss** support by following the [Install Tailwind CSS with Next.js](https://tailwindcss.com/docs/guides/nextjs) guide.
 - Added [firebase](https://www.npmjs.com/package/firebase) support and functions to store and query user data.
