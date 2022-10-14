@@ -7,12 +7,11 @@ import { getFirestore } from "firebase/firestore";
 // https://firebase.google.com/docs/web/setup#available-libraries
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
-  authDomain: "react-creative-threads.firebaseapp.com",
-  projectId: "react-creative-threads",
-  storageBucket: "react-creative-threads.appspot.com",
-  messagingSenderId: "206933870953",
-  appId: "1:206933870953:web:dc0b90cf7b9c0b9d3295f8",
-  measurementId: "G-E1YSYYJGEW",
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
 };
 
 // Initialize Firebase
